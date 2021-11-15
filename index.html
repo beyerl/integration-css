@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="integration.css" media="screen" />
+</head>
+
+<body>
+    <script type="text/javascript">
+        var ready = function (callback) {
+            if (document.readyState != "loading") callback();
+            else document.addEventListener("DOMContentLoaded", callback);
+        }
+
+        ready(function (event) {
+
+            var adeButton = document.getElementById("adeButton")
+            var adeModalWrapper = document.getElementById("adeModalWrapper")
+
+            adeButton.addEventListener("click", function () {
+                var iframe = document.createElement("iframe")
+                iframe.setAttribute("src", "https://www.ausschreiben.de/katalog/doku/custom")
+                iframe.className = "iframe"
+
+                var modalBackdrop = document.createElement("div")
+                modalBackdrop.className = "modal-backdrop"
+                modalBackdrop.addEventListener("click", function () {
+                    adeModalWrapper.removeChild(modalBackdrop)
+                })
+
+                var modal = document.createElement("div")
+                modal.className = "modal"
+
+                var modalHeader = document.createElement("div")
+                modalHeader.className = "modal-header"
+                modalHeader.innerText = "Ausschreibungstexte"
+
+                var modalCloseButton = document.createElement("button")
+                modalCloseButton.className = "modal-close-button"
+                modalCloseButton.innerText = "X"
+                modalCloseButton.addEventListener("click", function () {
+                    adeModalWrapper.removeChild(modalBackdrop)
+                })
+
+                var modalBody = document.createElement("div")
+                modalBody.className = "modal-body"
+
+                modalHeader.appendChild(modalCloseButton)
+                modal.appendChild(modalHeader)
+                modalBody.appendChild(iframe)
+                modal.appendChild(modalBody)
+                modalBackdrop.appendChild(modal)
+                adeModalWrapper.appendChild(modalBackdrop)
+            })
+        });
+    </script>
+
+    <a href="javascript:void(0);" id="adeButton">Zu den Ausschreibungstexten</a>
+    <div id="adeModalWrapper"></div>
+</body>
+
+</html>
